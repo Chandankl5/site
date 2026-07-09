@@ -1,0 +1,77 @@
+{
+  "basics": {
+    "name": "Chandan KL",
+    "title": "Senior Frontend Engineer",
+    "email": "available on request",
+    "phone": "available on request",
+    "location": "Bangalore, India",
+    "links": [
+      "linkedin.com/in/chandankl",
+      "github.com/Chandankl5",
+      "chandankl5.github.io/Portfolio"
+    ]
+  },
+  "summary": "Senior Frontend Engineer with 4+ years building production-ready React applications in JavaScript, HTML, and CSS, with strong TypeScript experience and a sharp eye for accessibility and performance. Skilled across the modern frontend ecosystem, including Webpack-based build tooling, responsive interfaces, and browser fundamentals, while collaborating cross-functionally to ship reusable, scalable frontend components. Track record of driving measurable business outcomes and raising code quality through design-system work and architectural RFCs. Mentors junior engineers and stays ahead of AI-native development workflows.",
+  "skills": {
+    "Languages": [
+      "JavaScript",
+      "TypeScript"
+    ],
+    "Web Development": [
+      "React",
+      "HTML",
+      "CSS",
+      "Webpack",
+      "Redux",
+      "Next.js",
+      "Node.js",
+      "Express.js"
+    ],
+    "Tooling": [
+      "Git",
+      "Docker",
+      "MCP"
+    ]
+  },
+  "experience": [
+    {
+      "title": "Senior Software Engineer",
+      "company": "Project44",
+      "location": "Bangalore, India",
+      "start": "Oct 2023",
+      "end": "Present",
+      "bullets": [
+        "Architected a reusable, scalable frontend component - an interactive split-shipment tree view for complex multi-leg shipments - owning recursive tree state management, async data synchronisation, and cross-component state sharing, driving a $1.2M ARR uplift in collaboration with design, backend, and product.",
+        "Contributed to a React Aria-based design system, establishing accessible, reusable component patterns adopted across multiple microfrontends.",
+        "Led the migration of the legacy Last Mile application to the modern frontend stack, rewriting the entire UI layer and progressively rolling it out to 100% of customers - a seamless cutover with no disruption to existing workflows.",
+        "Mentored junior engineers through feature ownership and unblocking cross-team dependencies, and shaped team-level frontend engineering best practices via architectural RFCs.",
+        "Improved performance and reduced costs by consolidating redundant per-page Mapbox map instances into a single shared instance reused across the application.",
+        "Owned the bulk carrier CSV upload experience supporting up to 10,000 shipments - client-side parsing, file preview, and per-row inline error feedback - reducing churn by 1.5%.",
+        "Extended Figma's MCP (Figma-to-code) integration with codebase conventions - module structure, shared-component usage, hooks, data-fetching, and testing standards - as AI context, reducing design-to-code handoff time across frontend teams."
+      ]
+    },
+    {
+      "title": "Software Engineer 2",
+      "company": "Practo",
+      "location": "Bangalore, India",
+      "start": "Aug 2021",
+      "end": "Sep 2023",
+      "bullets": [
+        "Improved Core Web Vitals (LCP, TTI) - key browser performance metrics - for Practo's Care product, increasing leads by 22%.",
+        "Added adaptive video streaming and image stories to the Doctor Profile, driving more user traffic and increasing conversion by 18%.",
+        "Helped design and build the Unified Health Interface (UHI) for seamless end-to-end delivery of health services."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "B.E. Computer Science",
+      "institution": "Bangalore University",
+      "location": "Bangalore, India",
+      "start": "Aug 2017",
+      "end": "Jul 2021"
+    }
+  ],
+  "certifications": [],
+  "projects": []
+}

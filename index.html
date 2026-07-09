@@ -1,0 +1,25 @@
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Job Application Tracker</title>
+<link rel="stylesheet" href="assets/style.css" />
+
+<header class="topbar">
+  <h1>Job Application Tracker</h1>
+  <div id="generated-at" class="generated-at"></div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <button class="tab-btn active" data-tab="jobs">Job Board</button>
+  <button class="tab-btn" data-tab="runs">Runs</button>
+</nav>
+
+<main>
+  <section id="view-jobs" class="view"></section>
+  <section id="view-runs" class="view hidden"></section>
+</main>
+
+<div id="detail-overlay" class="overlay hidden">
+  <div id="detail-panel" class="detail-panel"></div>
+</div>
+
+<script type="module" src="assets/app.js"></script>

@@ -1,0 +1,43 @@
+[
+  {
+    "event": "discover_done",
+    "agent": "browser-discover",
+    "status": "no_search_page",
+    "seen_skipped": 0,
+    "newly_collected": 0,
+    "reason": "Cannot access browser tabs - no usable search results page found",
+    "ts": "2026-07-08T19:06:57.444Z"
+  },
+  {
+    "event": "discover_done",
+    "agent": "browser-discover",
+    "seen_skipped": 0,
+    "newly_collected": 20,
+    "total_cards_seen": 25,
+    "blockers": "none",
+    "ts": "2026-07-08T19:17:11.342Z"
+  },
+  {
+    "event": "scored",
+    "agent": "scorer",
+    "job_id": "linkedin_4282211964",
+    "to_phase": "pending_tailor",
+    "fit_score": 91,
+    "ts": "2026-07-08T19:27:09.371Z"
+  },
+  {
+    "event": "tailored",
+    "agent": "tailor",
+    "job_id": "linkedin_4282211964",
+    "resume_version": "resume_hackerrank_20260709.pdf",
+    "ts": "2026-07-08T19:31:26.548Z"
+  },
+  {
+    "event": "applied",
+    "agent": "orchestrator",
+    "job_id": "linkedin_4282211964",
+    "to_phase": "manual_required",
+    "result_reason": "too_many_fields_and_upload_tool_broken",
+    "ts": "2026-07-08T19:40:34.700Z"
+  }
+]

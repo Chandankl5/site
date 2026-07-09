@@ -1,0 +1,25 @@
+{
+  "current_run_id": "run_20260709_003516",
+  "runs": {
+    "run_20260709_003516": {
+      "run_id": "run_20260709_003516",
+      "status": "paused",
+      "phase": "score",
+      "started_at": "2026-07-09T00:35:16Z",
+      "counts": {
+        "discovered": 0,
+        "scored": 0,
+        "tailored": 0,
+        "applied": 0,
+        "skipped": 0
+      },
+      "search_context": {
+        "portal": "linkedin",
+        "location": "India - Bengaluru region (geoId: 105307040)",
+        "keywords": "Software Engineer, Senior Software Engineer, Senior Frontend Developer, Frontend Developer, UI Developer",
+        "work_mode_filter": "on-site or hybrid",
+        "date_posted": "any"
+      }
+    }
+  }
+}
