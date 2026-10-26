@@ -1,6 +1,5 @@
-// Job Board: search/filter/sort/date-range list of every job across every
-// run, plus the shared detail-panel + resume-preview rendering reused by
-// runsView.js.
+// Job Board: client-side search, filtering, sorting and pagination across
+// the public job snapshot.
 
 import {
   statusMeta,
@@ -12,17 +11,12 @@ import {
   escapeHtml,
   DATE_PRESET_LABELS,
 } from "./util.js";
-import { renderResumeHTML } from "./resumeTemplate.js";
 
 const jobIndex = new Map(); // job_id -> job record, populated via registerJobs()
-const resumeCache = new Map(); // job_id -> resume json | null (fetched, none found)
 
 export function registerJobs(jobs) {
   for (const job of jobs) jobIndex.set(job.job_id, job);
 }
-
-const FIT_MAX = { skills_score: 40, experience_score: 25, location_score: 20, salary_score: 15 };
-const FIT_LABELS = { skills_score: "Skills", experience_score: "Experience", location_score: "Location", salary_score: "Salary" };
 
 const SORT_COLUMNS = [
   { key: "title", label: "Title & company" },
@@ -59,35 +53,6 @@ function renderJobListHeader(sortKey, sortDir) {
     </div>`;
 }
 
-async function fetchResume(jobId) {
-  if (resumeCache.has(jobId)) return resumeCache.get(jobId);
-  try {
-    const res = await fetch(`data/resumes/${encodeURIComponent(jobId)}.json`);
-    const resume = res.ok ? await res.json() : null;
-    resumeCache.set(jobId, resume);
-    return resume;
-  } catch (e) {
-    resumeCache.set(jobId, null);
-    return null;
-  }
-}
-
-function renderFitBars(breakdown) {
-  if (!breakdown) return "";
-  return `<div class="fit-bars">${Object.entries(FIT_MAX)
-    .map(([key, max]) => {
-      const val = breakdown[key] || 0;
-      const pct = Math.min(100, Math.round((val / max) * 100));
-      return `
-        <div class="fit-bar-row">
-          <div class="fit-bar-label">${FIT_LABELS[key]}</div>
-          <div class="fit-bar-track"><div class="fit-bar-fill" style="width:${pct}%"></div></div>
-          <div class="fit-bar-value">${val}/${max}</div>
-        </div>`;
-    })
-    .join("")}</div>`;
-}
-
 const overlay = () => document.getElementById("detail-overlay");
 const panel = () => document.getElementById("detail-panel");
 
@@ -96,48 +61,36 @@ export function closeDetail() {
   panel().innerHTML = "";
 }
 
-export async function openJobDetail(job) {
+export function openJobDetail(job) {
   const meta = statusMeta(job.phase);
+  let jobUrl = "";
+  try {
+    const parsedUrl = new URL(job.job_url);
+    if (parsedUrl.protocol === "https:" || parsedUrl.protocol === "http:") jobUrl = parsedUrl.href;
+  } catch (e) {
+    // Do not render an invalid or unsafe public URL as a link.
+  }
   panel().innerHTML = `
     <button class="close-btn" id="detail-close">&times;</button>
     <div class="detail-header">
       <h2>${escapeHtml(job.title)}</h2>
       <div class="sub">${escapeHtml(job.company)} · ${escapeHtml(job.location || "")} · ${escapeHtml(job.portal)}</div>
       <span class="badge ${meta.badge}">${escapeHtml(meta.label)}</span>
-      <div class="chip-row">${(job.ats_keywords || []).map((k) => `<span class="chip">${escapeHtml(k)}</span>`).join("")}</div>
     </div>
 
     <div class="section-block">
-      <h3>Fit</h3>
       <p><b>Score:</b> ${job.fit_score != null ? job.fit_score : "not scored"}</p>
-      ${renderFitBars(job.fit_breakdown)}
-      ${job.fit_rationale ? `<p>${escapeHtml(job.fit_rationale)}</p>` : ""}
     </div>
 
     <div class="section-block">
       <h3>Result</h3>
       <p><b>Decided:</b> ${job.decided_at ? formatDateTime(job.decided_at) : "in progress"}</p>
       ${job.result_reason ? `<p><b>Reason:</b> ${escapeHtml(job.result_reason)}</p>` : ""}
-      ${job.resume_version ? `<p><b>Resume version:</b> ${escapeHtml(job.resume_version)}</p>` : ""}
-      <p><b>Job URL:</b> <a href="${escapeHtml(job.job_url)}" target="_blank" rel="noopener">${escapeHtml(job.job_url)}</a></p>
-    </div>
-
-    <div class="section-block">
-      <h3>Job Description</h3>
-      <div class="jd-text">${escapeHtml(job.jd_text || "No JD text captured.")}</div>
-    </div>
-
-    <div class="section-block" id="resume-block">
-      <h3>Resume Submitted</h3>
-      <div class="empty-state">Loading resume preview…</div>
+      ${jobUrl ? `<p><b>Job URL:</b> <a href="${escapeHtml(jobUrl)}" target="_blank" rel="noopener">${escapeHtml(jobUrl)}</a></p>` : ""}
     </div>
   `;
   overlay().classList.remove("hidden");
   document.getElementById("detail-close").addEventListener("click", closeDetail);
-
-  const resume = await fetchResume(job.job_id);
-  const block = document.getElementById("resume-block");
-  if (block) block.innerHTML = `<h3>Resume Submitted</h3>${renderResumeHTML(resume)}`;
 }
 
 function attachRowClicks(container) {
@@ -174,7 +127,7 @@ function applyFilters(jobs, state) {
     if (state.portal !== "all" && job.portal !== state.portal) return false;
     if (state.fitMin > 0 && (job.fit_score == null || job.fit_score < state.fitMin)) return false;
     if (q) {
-      const haystack = [job.title, job.company, ...(job.ats_keywords || [])].join(" ").toLowerCase();
+      const haystack = [job.title, job.company].join(" ").toLowerCase();
       if (!haystack.includes(q)) return false;
     }
     return true;
@@ -223,52 +176,56 @@ function renderStats(stats) {
     .join("");
 }
 
-export function initJobBoard(container, jobs) {
+export function initJobBoard(container, jobs, { manualOnly = false, idPrefix = "jb" } = {}) {
   registerJobs(jobs);
-  const portals = uniquePortals(jobs);
+  const boardJobs = manualOnly ? jobs.filter((job) => job.phase === "manual_required") : jobs;
+  const id = (name) => `${idPrefix}-${name}`;
+  const portals = uniquePortals(boardJobs);
   const statusOptions = ["all", "applied", "awaiting_human_submit", "manual_required", "skipped", "email_draft", "error", "pending_score", "pending_tailor", "pending_apply"];
 
   container.innerHTML = `
-    <div class="stats-strip" id="jb-stats"></div>
+    <div class="stats-strip" id="${id("stats")}"></div>
     <div class="toolbar">
-      <input type="text" id="jb-search" placeholder="Search title, company, keywords…" />
-      <select id="jb-status">
+      <input type="text" id="${id("search")}" placeholder="Search title, company, keywords…" />
+      <select id="${id("status")}">
         ${statusOptions.map((s) => `<option value="${s}">${s === "all" ? "All statuses" : s}</option>`).join("")}
       </select>
-      <select id="jb-portal">
+      <select id="${id("portal")}">
         <option value="all">All portals</option>
         ${portals.map((p) => `<option value="${escapeHtml(p)}">${escapeHtml(p)}</option>`).join("")}
       </select>
-      <select id="jb-fit-min">
+      <select id="${id("fit-min")}">
         <option value="0">Any fit score</option>
         <option value="50">Fit ≥ 50</option>
         <option value="70">Fit ≥ 70</option>
         <option value="90">Fit ≥ 90</option>
       </select>
-      <div class="preset-group" id="jb-presets">
+      <div class="preset-group" id="${id("presets")}">
         ${["all", "today", "yesterday", "last7", "last30"]
           .map((p) => `<button class="preset-btn${p === "all" ? " active" : ""}" data-preset="${p}">${DATE_PRESET_LABELS[p]}</button>`)
           .join("")}
         <button class="preset-btn" data-preset="custom">${DATE_PRESET_LABELS.custom}</button>
       </div>
-      <input type="date" id="jb-from" class="hidden" />
-      <input type="date" id="jb-to" class="hidden" />
+      <input type="date" id="${id("from")}" class="hidden" />
+      <input type="date" id="${id("to")}" class="hidden" />
     </div>
-    <div class="result-count" id="jb-count"></div>
-    <div class="job-list" id="jb-list"></div>
+    <div class="result-count" id="${id("count")}"></div>
+    <div class="job-list" id="${id("list")}"></div>
+    <div class="pagination" id="${id("pagination")}" aria-label="Job list pages"></div>
   `;
 
-  const state = { search: "", status: "all", portal: "all", fitMin: 0, preset: "all", customFrom: null, customTo: null, sortKey: "decided_at", sortDir: "desc" };
+  const state = { search: "", status: "all", portal: "all", fitMin: 0, preset: "all", customFrom: null, customTo: null, sortKey: "decided_at", sortDir: "desc", page: 1, pageSize: 25 };
 
-  const statsEl = container.querySelector("#jb-stats");
-  const list = container.querySelector("#jb-list");
-  const count = container.querySelector("#jb-count");
-  const searchInput = container.querySelector("#jb-search");
-  const statusSelect = container.querySelector("#jb-status");
-  const portalSelect = container.querySelector("#jb-portal");
-  const fitSelect = container.querySelector("#jb-fit-min");
-  const fromInput = container.querySelector("#jb-from");
-  const toInput = container.querySelector("#jb-to");
+  const statsEl = container.querySelector(`#${id("stats")}`);
+  const list = container.querySelector(`#${id("list")}`);
+  const count = container.querySelector(`#${id("count")}`);
+  const pagination = container.querySelector(`#${id("pagination")}`);
+  const searchInput = container.querySelector(`#${id("search")}`);
+  const statusSelect = container.querySelector(`#${id("status")}`);
+  const portalSelect = container.querySelector(`#${id("portal")}`);
+  const fitSelect = container.querySelector(`#${id("fit-min")}`);
+  const fromInput = container.querySelector(`#${id("from")}`);
+  const toInput = container.querySelector(`#${id("to")}`);
   attachRowClicks(list);
 
   function resetFilters() {
@@ -277,62 +234,99 @@ export function initJobBoard(container, jobs) {
     statusSelect.value = "all";
     portalSelect.value = "all";
     fitSelect.value = "0";
-    container.querySelectorAll("#jb-presets .preset-btn").forEach((b) => b.classList.toggle("active", b.dataset.preset === "all"));
+    state.page = 1;
+    container.querySelectorAll(`#${id("presets")} .preset-btn`).forEach((b) => b.classList.toggle("active", b.dataset.preset === "all"));
     fromInput.classList.add("hidden");
     toInput.classList.add("hidden");
     render();
   }
 
   function render() {
-    const { dated, undated } = applyFilters(jobs, state);
+    const { dated, undated } = applyFilters(boardJobs, state);
     const total = dated.length + undated.length;
-    count.textContent = `${total} job${total === 1 ? "" : "s"}`;
     statsEl.innerHTML = renderStats(computeStats([...dated, ...undated]));
 
-    if (jobs.length === 0) {
-      list.innerHTML = `<div class="empty-state">No jobs recorded yet. Run <code>/apply</code> to start applying, then <code>npm run build-site</code> to publish.</div>`;
+    if (boardJobs.length === 0) {
+      list.innerHTML = manualOnly
+        ? `<div class="empty-state">No jobs currently need manual action.</div>`
+        : `<div class="empty-state">No jobs recorded yet. Run <code>/apply</code> to start applying, then <code>npm run build-site</code> to publish.</div>`;
+      count.textContent = "0 jobs";
+      pagination.innerHTML = "";
       return;
     }
     if (total === 0) {
-      list.innerHTML = `<div class="empty-state">No jobs match these filters. <span class="back-link" id="jb-clear">Clear filters</span></div>`;
-      list.querySelector("#jb-clear").addEventListener("click", resetFilters);
+      list.innerHTML = `<div class="empty-state">No jobs match these filters. <button class="back-link" id="${id("clear")}">Clear filters</button></div>`;
+      list.querySelector(`#${id("clear")}`).addEventListener("click", resetFilters);
+      count.textContent = "0 jobs";
+      pagination.innerHTML = "";
       return;
     }
 
+    const pageCount = Math.max(1, Math.ceil(total / state.pageSize));
+    state.page = Math.min(state.page, pageCount);
+    const startIndex = (state.page - 1) * state.pageSize;
+    const pageJobs = [...dated, ...undated].slice(startIndex, startIndex + state.pageSize);
+    const datedOnPage = pageJobs.filter((job) => job.decided_at);
+    const undatedOnPage = pageJobs.filter((job) => !job.decided_at);
+    count.textContent = `Showing ${startIndex + 1}–${Math.min(startIndex + pageJobs.length, total)} of ${total} job${total === 1 ? "" : "s"}`;
     let html = renderJobListHeader(state.sortKey, state.sortDir);
-    html += dated.map(renderJobRow).join("");
-    if (undated.length) {
+    html += datedOnPage.map(renderJobRow).join("");
+    if (undatedOnPage.length) {
       html += `<div class="result-count" style="margin-top:14px;">Undated / in progress (${undated.length})</div>`;
-      html += undated.map(renderJobRow).join("");
+      html += undatedOnPage.map(renderJobRow).join("");
     }
     list.innerHTML = html;
+    pagination.innerHTML = `
+      <label>Jobs per page
+        <select id="${id("page-size")}">
+          ${[25, 50, 100].map((size) => `<option value="${size}"${size === state.pageSize ? " selected" : ""}>${size}</option>`).join("")}
+        </select>
+      </label>
+      <span>Page ${state.page} of ${pageCount}</span>
+      <button type="button" data-page="prev"${state.page === 1 ? " disabled" : ""}>Previous</button>
+      <button type="button" data-page="next"${state.page === pageCount ? " disabled" : ""}>Next</button>
+    `;
+    pagination.querySelector(`#${id("page-size")}`).addEventListener("change", (event) => {
+      state.pageSize = Number(event.target.value);
+      state.page = 1;
+      render();
+    });
+    pagination.querySelectorAll("button[data-page]").forEach((button) => button.addEventListener("click", () => {
+      state.page += button.dataset.page === "next" ? 1 : -1;
+      render();
+    }));
   }
 
   searchInput.addEventListener(
     "input",
     debounce((e) => {
       state.search = e.target.value;
+      state.page = 1;
       render();
     }, 150)
   );
   statusSelect.addEventListener("change", (e) => {
     state.status = e.target.value;
+    state.page = 1;
     render();
   });
   portalSelect.addEventListener("change", (e) => {
     state.portal = e.target.value;
+    state.page = 1;
     render();
   });
   fitSelect.addEventListener("change", (e) => {
     state.fitMin = Number(e.target.value);
+    state.page = 1;
     render();
   });
-  container.querySelector("#jb-presets").addEventListener("click", (e) => {
+  container.querySelector(`#${id("presets")}`).addEventListener("click", (e) => {
     const btn = e.target.closest(".preset-btn");
     if (!btn) return;
-    container.querySelectorAll("#jb-presets .preset-btn").forEach((b) => b.classList.remove("active"));
+    container.querySelectorAll(`#${id("presets")} .preset-btn`).forEach((b) => b.classList.remove("active"));
     btn.classList.add("active");
     state.preset = btn.dataset.preset;
+    state.page = 1;
     const isCustom = state.preset === "custom";
     fromInput.classList.toggle("hidden", !isCustom);
     toInput.classList.toggle("hidden", !isCustom);
@@ -345,10 +339,12 @@ export function initJobBoard(container, jobs) {
   }
   fromInput.addEventListener("change", () => {
     updateCustomRange();
+    state.page = 1;
     render();
   });
   toInput.addEventListener("change", () => {
     updateCustomRange();
+    state.page = 1;
     render();
   });
   list.addEventListener("click", (e) => {
@@ -361,6 +357,7 @@ export function initJobBoard(container, jobs) {
       state.sortKey = key;
       state.sortDir = key === "fit_score" || key === "decided_at" ? "desc" : "asc";
     }
+    state.page = 1;
     render();
   });
 

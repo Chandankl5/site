@@ -64,6 +64,7 @@ async function main() {
   }
 
   initJobBoard(document.getElementById("view-jobs"), jobs || []);
+  initJobBoard(document.getElementById("view-manual"), jobs || [], { manualOnly: true, idPrefix: "manual" });
   initRunsView(document.getElementById("view-runs"), (runsData && runsData.runs) || {}, jobs || []);
 }
 
