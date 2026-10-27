@@ -1,0 +1,8 @@
+{
+  "date": null,
+  "groq_usage": {},
+  "gemini_usage": {},
+  "gemini_daily_cap": 20,
+  "groq_tpd_cap": 200000,
+  "groq_tpd_safety_cap": 180000
+}

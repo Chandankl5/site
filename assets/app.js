@@ -1,5 +1,6 @@
 import { initJobBoard, closeDetail } from "./jobBoard.js";
 import { initRunsView } from "./runsView.js";
+import { renderLlmUsage } from "./llmUsage.js";
 
 function setupTabs() {
   const tabs = document.getElementById("tabs");
@@ -56,15 +57,21 @@ async function main() {
     return;
   }
 
-  const [runsData, jobs] = await Promise.all([fetchJson("data/runs.json"), fetchJson("data/jobs.json")]);
+  const [runsData, jobs, llmUsage] = await Promise.all([
+    fetchJson("data/runs.json"),
+    fetchJson("data/jobs.json"),
+    fetchJson("data/llm_usage.json"),
+  ]);
 
   const generatedAtEl = document.getElementById("generated-at");
   if (generatedAtEl && manifest.generated_at) {
     generatedAtEl.textContent = `data as of ${new Date(manifest.generated_at).toLocaleString()}`;
   }
 
+  renderLlmUsage(document.getElementById("llm-usage"), llmUsage);
   initJobBoard(document.getElementById("view-jobs"), jobs || []);
-  initJobBoard(document.getElementById("view-manual"), jobs || [], { manualOnly: true, idPrefix: "manual" });
+  const manualEl = document.getElementById("view-manual");
+  if (manualEl) initJobBoard(manualEl, jobs || [], { manualOnly: true, idPrefix: "manual" });
   initRunsView(document.getElementById("view-runs"), (runsData && runsData.runs) || {}, jobs || []);
 }
 
