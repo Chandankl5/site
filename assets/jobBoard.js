@@ -26,6 +26,23 @@ const SORT_COLUMNS = [
   { key: "phase", label: "Status" },
 ];
 
+const FIT_COMPONENTS = [
+  { key: "skills_score", label: "Skills", max: 40 },
+  { key: "experience_score", label: "Experience", max: 25 },
+  { key: "location_score", label: "Location", max: 20 },
+  { key: "salary_score", label: "Salary", max: 15 },
+];
+
+function renderFitBreakdown(breakdown, className = "") {
+  const available = FIT_COMPONENTS.filter(({ key }) => Number.isFinite(Number(breakdown?.[key])) && breakdown[key] !== null);
+  if (!available.length) return `<span class="fit-breakdown-empty">—</span>`;
+  return `<div class="fit-pills ${className}" aria-label="Fit score breakdown">${available.map(({ key, label, max }) => {
+    const score = Number(breakdown[key]);
+    const value = Number.isInteger(score) ? score : score.toFixed(1);
+    return `<span class="fit-pill" title="${label}: ${value} out of ${max}">${label} ${value}/${max}</span>`;
+  }).join("")}</div>`;
+}
+
 export function renderJobRow(job) {
   const meta = statusMeta(job.phase);
   const dateLabel = job.decided_at ? formatDate(job.decided_at) : job.posted_at ? `posted ${formatDate(job.posted_at)}` : "—";
@@ -47,6 +64,7 @@ export function renderJobRow(job) {
       <div class="meta">${dateLabel}</div>
       <div class="fit-score">${job.fit_score != null ? job.fit_score : "—"}</div>
       <div><span class="badge ${meta.badge}">${escapeHtml(meta.label)}</span></div>
+      <div class="fit-breakdown-cell">${renderFitBreakdown(job.fit_breakdown, "fit-pills-compact")}</div>
     </div>`;
 }
 
@@ -58,6 +76,7 @@ function renderJobListHeader(sortKey, sortDir) {
         const arrow = active ? (sortDir === "asc" ? " ▲" : " ▼") : "";
         return `<div class="sort-col${active ? " active" : ""}" data-sort-key="${col.key}">${col.label}${arrow}</div>`;
       }).join("")}
+      <div class="fit-breakdown-heading">Breakdown</div>
     </div>`;
 }
 
@@ -96,6 +115,8 @@ export function openJobDetail(job) {
 
     <div class="section-block">
       <p><b>Score:</b> ${job.fit_score != null ? job.fit_score : "not scored"}</p>
+      <h3>Score breakdown</h3>
+      ${renderFitBreakdown(job.fit_breakdown, "fit-pills-detail")}
     </div>
 
     <div class="section-block">
