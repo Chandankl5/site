@@ -29,11 +29,19 @@ const SORT_COLUMNS = [
 export function renderJobRow(job) {
   const meta = statusMeta(job.phase);
   const dateLabel = job.decided_at ? formatDate(job.decided_at) : job.posted_at ? `posted ${formatDate(job.posted_at)}` : "—";
+  const downloads = job.resume_downloads || {};
+  const resumeLinks = [
+    ["pdf", "PDF"],
+    ["docx", "DOCX"],
+  ].filter(([format]) => typeof downloads[format] === "string");
   return `
     <div class="job-row" data-job-id="${escapeHtml(job.job_id)}">
       <div>
         <div class="title">${escapeHtml(job.title)}</div>
         <div class="company">${escapeHtml(job.company)}</div>
+        ${resumeLinks.length
+          ? `<div class="job-resume-links">Resume: ${resumeLinks.map(([format, label]) => `<a href="${escapeHtml(downloads[format])}" target="_blank" rel="noopener">${label}</a>`).join(" · ")}</div>`
+          : ""}
       </div>
       <div class="meta">${escapeHtml(job.portal)}<br/>${escapeHtml(job.location || "")}</div>
       <div class="meta">${dateLabel}</div>
@@ -70,6 +78,11 @@ export function openJobDetail(job) {
   } catch (e) {
     // Do not render an invalid or unsafe public URL as a link.
   }
+  const resumeDownloads = job.resume_downloads || {};
+  const resumeLinks = [
+    ["pdf", "Download PDF"],
+    ["docx", "Download DOCX"],
+  ].filter(([format]) => typeof resumeDownloads[format] === "string");
   panel().innerHTML = `
     <button class="close-btn" id="detail-close">&times;</button>
     <div class="detail-header">
@@ -88,6 +101,14 @@ export function openJobDetail(job) {
       ${job.result_reason ? `<p><b>Reason:</b> ${escapeHtml(job.result_reason)}</p>` : ""}
       ${jobUrl ? `<p><b>Job URL:</b> <a href="${escapeHtml(jobUrl)}" target="_blank" rel="noopener">${escapeHtml(jobUrl)}</a></p>` : ""}
     </div>
+
+    <div class="section-block">
+      <h3>Tailored resume</h3>
+      ${resumeLinks.length
+        ? `<p>${resumeLinks.map(([format, label]) => `<a class="resume-download" href="${escapeHtml(resumeDownloads[format])}" target="_blank" rel="noopener">${label}</a>`).join(" · ")}</p>
+           <p class="resume-download-note">The files are in the private automation repo. GitHub sign-in with repo access is required.</p>`
+        : `<p>No tailored resume file is available for this job.</p>`}
+    </div>
   `;
   overlay().classList.remove("hidden");
   document.getElementById("detail-close").addEventListener("click", closeDetail);
@@ -95,6 +116,7 @@ export function openJobDetail(job) {
 
 function attachRowClicks(container) {
   container.addEventListener("click", (e) => {
+    if (e.target.closest("a")) return;
     const row = e.target.closest(".job-row");
     if (!row) return;
     const job = jobIndex.get(row.dataset.jobId);
