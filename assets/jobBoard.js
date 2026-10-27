@@ -83,6 +83,10 @@ export function openJobDetail(job) {
     ["pdf", "Download PDF"],
     ["docx", "Download DOCX"],
   ].filter(([format]) => typeof resumeDownloads[format] === "string");
+  const resultReason = {
+    job_description_missing: "No job description was available, so this job was not scored. Open the posting and review it manually.",
+    unsupported_resume_format: "The application form does not accept the available PDF or DOCX resume. Review the form manually.",
+  }[job.result_reason] || job.result_reason;
   panel().innerHTML = `
     <button class="close-btn" id="detail-close">&times;</button>
     <div class="detail-header">
@@ -98,7 +102,7 @@ export function openJobDetail(job) {
     <div class="section-block">
       <h3>Result</h3>
       <p><b>Decided:</b> ${job.decided_at ? formatDateTime(job.decided_at) : "in progress"}</p>
-      ${job.result_reason ? `<p><b>Reason:</b> ${escapeHtml(job.result_reason)}</p>` : ""}
+      ${resultReason ? `<p><b>Reason:</b> ${escapeHtml(resultReason)}</p>` : ""}
       ${jobUrl ? `<p><b>Job URL:</b> <a href="${escapeHtml(jobUrl)}" target="_blank" rel="noopener">${escapeHtml(jobUrl)}</a></p>` : ""}
     </div>
 
