@@ -100,5 +100,39 @@
     "decided_at": "2026-11-06T08:03:49.124Z",
     "workflow_type": "apify-fantastic-jobs",
     "last_step_executed": "dedup"
+  },
+  {
+    "job_id": "fantastic_jobs_2451458628",
+    "job_url": "https://ystrategie.teamtailor.com/jobs/8670374-senior-front-end-developer",
+    "title": "Senior Front-End Developer",
+    "company": "Y Strategie",
+    "portal": "teamtailor",
+    "location": "Casablanca, Casablanca-Settat, Morocco (Remote OK)",
+    "posted_at": "2026-11-05T08:52:12",
+    "application_type": "external_form",
+    "phase": "skipped",
+    "status": "skipped",
+    "reason": "seen_duplicate",
+    "run_id": "run_20261106_091630",
+    "decided_at": "2026-11-06T08:03:49.087Z",
+    "workflow_type": "apify-fantastic-jobs",
+    "last_step_executed": "dedup"
+  },
+  {
+    "job_id": "fantastic_jobs_2451759499",
+    "job_url": "https://careers.carla.se/en-GB/jobs/8651607-senior-frontend-engineer",
+    "title": "Senior Frontend Engineer",
+    "company": "Carla",
+    "portal": "teamtailor",
+    "location": "Sweden (Remote OK)",
+    "posted_at": "2026-11-02T13:31:57",
+    "application_type": "external_form",
+    "phase": "skipped",
+    "status": "skipped",
+    "reason": "seen_duplicate",
+    "run_id": "run_20261106_091630",
+    "decided_at": "2026-11-06T08:03:49.124Z",
+    "workflow_type": "apify-fantastic-jobs",
+    "last_step_executed": "dedup"
   }
 ]

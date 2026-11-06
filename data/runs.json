@@ -78,6 +78,32 @@
       "models_used": [],
       "fallbacks_used": [],
       "github_run_url": "https://github.com/Chandankl5/ja-automation/actions/runs/42190847547"
+    },
+    "run_20261106_091630": {
+      "run_id": "run_20261106_091630",
+      "status": "completed",
+      "phase": "tailor",
+      "started_at": "2026-11-06T09:16:30.528Z",
+      "completed_at": "2026-11-06T09:16:30.528Z",
+      "source": "headless-discover",
+      "workflow_type": "apify-fantastic-jobs",
+      "counts": {
+        "discovered": 2,
+        "filtered_out": 2,
+        "scored": 0,
+        "tailored": 0,
+        "applied": 0,
+        "skipped": 2,
+        "manual_required": 0,
+        "awaiting_human_submit": 0,
+        "email_draft": 0,
+        "error": 0
+      },
+      "last_step_executed": "tailor",
+      "stop_reason": "Tailoring completed: 0 resume(s) tailored",
+      "models_used": [],
+      "fallbacks_used": [],
+      "github_run_url": "https://github.com/Chandankl5/ja-automation/actions/runs/42193751032"
     }
   }
 }
