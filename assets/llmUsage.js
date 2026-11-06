@@ -8,7 +8,7 @@
 // only "whatever ran today" (confirmed live: on a day apply was tested but
 // score/tailor weren't, their two meters were completely missing).
 
-import { escapeHtml } from "./util.js";
+import { escapeHtml, formatDate } from "./util.js";
 
 // One entry per model actually used ANYWHERE in this pipeline — the
 // authoritative list, not derived from whatever happens to be in a given
@@ -72,10 +72,19 @@ export function renderLlmUsage(container, usage) {
     return renderMeter(`${stageLabel(m.model)} (${unitLabel})`, used, cap, !!entry.benched, m.unit);
   });
 
-  const dateLabel = usage.date || "no calls recorded yet";
+  let totalTokensToday = 0;
+  let totalRequestsToday = 0;
+  for (const m of Object.values(usage.groq_usage || {})) totalTokensToday += m.tokens_today || 0;
+  for (const m of Object.values(usage.gemini_usage || {})) totalRequestsToday += m.calls || 0;
+
+  const dateStr = usage.date ? formatDate(usage.date) : formatDate(new Date().toISOString());
+  const statusNote = (totalTokensToday === 0 && totalRequestsToday === 0)
+    ? "· 0 calls recorded today (Quota 100% available)"
+    : `· ${totalRequestsToday} reqs / ${totalTokensToday.toLocaleString()} tokens`;
+
   container.innerHTML = `
     <div class="llm-usage-panel">
-      <div class="llm-usage-header">LLM usage today (${escapeHtml(dateLabel)})</div>
+      <div class="llm-usage-header">LLM usage today (${escapeHtml(dateStr)}) <span style="font-weight:normal;color:var(--text-muted);font-size:12px;margin-left:6px;">${escapeHtml(statusNote)}</span></div>
       ${meters.join("")}
     </div>`;
 }

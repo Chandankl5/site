@@ -841,6 +841,17 @@ main { padding: 20px 28px 60px; max-width: 1100px; margin: 0 auto; }
   color: #fff;
 }
 
+.run-id-link {
+  text-decoration: none;
+  color: var(--text);
+  font-family: monospace;
+  transition: color 0.15s ease;
+}
+.run-id-link:hover {
+  color: #58a6ff;
+  text-decoration: underline;
+}
+
 .model-pills-group {
   display: flex;
   align-items: center;
