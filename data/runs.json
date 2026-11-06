@@ -1,69 +1,55 @@
 {
-  "current_run_id": "run_20260709_003516",
+  "current_run_id": null,
   "runs": {
-    "run_20260709_003516": {
-      "run_id": "run_20260709_003516",
-      "status": "paused",
-      "phase": "score",
-      "started_at": "2026-07-09T00:35:16Z",
-      "counts": {
-        "discovered": 20,
-        "filtered_out": 15,
-        "scored": 1,
-        "tailored": 1,
-        "applied": 0,
-        "skipped": 15,
-        "manual_required": 1
-      },
-      "search_context": {
-        "portal": "linkedin",
-        "location": "India - Bengaluru region (geoId: 105307040)",
-        "keywords": "Software Engineer, Senior Software Engineer, Senior Frontend Developer, Frontend Developer, UI Developer",
-        "work_mode_filter": "on-site or hybrid",
-        "date_posted": "any"
-      },
-      "last_step_executed": "apply",
-      "stop_reason": "Stopped at apply: Greenhouse form exceeded field limit; resume upload tool required manual action",
-      "models_used": [
-        "gemini-3.8-flash",
-        "gemini-3.8-flash-lite"
-      ],
-      "fallbacks_used": []
-    },
-    "run_20261106_090000": {
-      "run_id": "run_20261106_090000",
+    "run_20261106_080349": {
+      "run_id": "run_20261106_080349",
       "status": "completed",
-      "phase": "apply",
-      "started_at": "2026-11-06T03:30:00Z",
-      "completed_at": "2026-11-06T03:42:15Z",
+      "phase": "filter",
+      "started_at": "2026-11-06T08:03:49.356Z",
+      "completed_at": "2026-11-06T08:03:49.356Z",
       "source": "headless-discover",
       "workflow_type": "apify-fantastic-jobs",
-      "last_step_executed": "apply",
-      "stop_reason": "Completed all pipeline stages: 1 application submitted, 1 awaiting human submit",
-      "models_used": [
-        "gemini-3.8-flash",
-        "gemini-2.5-flash",
-        "openai/gpt-oss-120b",
-        "gemini-3.8-flash-lite"
-      ],
-      "fallbacks_used": [
-        {
-          "step": "score",
-          "primary_model": "gemini-3.8-flash",
-          "fallback_model": "gemini-2.5-flash",
-          "failure_reason": "HTTP 429 Quota Exceeded (Resource has been exhausted)",
-          "fallback_reason": "Internal Gemini lane failover: primary 3.8 rate limited, successfully retried on 2.5"
-        }
-      ],
       "counts": {
-        "discovered": 8,
-        "filtered_out": 4,
-        "scored": 4,
-        "tailored": 2,
-        "applied": 1,
-        "skipped": 6,
-        "manual_required": 1
-      }
+        "discovered": 2,
+        "filtered_out": 2,
+        "scored": 0,
+        "tailored": 0,
+        "applied": 0,
+        "skipped": 2,
+        "manual_required": 0,
+        "awaiting_human_submit": 0,
+        "email_draft": 0,
+        "error": 0
+      },
+      "last_step_executed": "filter",
+      "stop_reason": "All 2 scanned jobs filtered out during prefilter/dedup",
+      "models_used": [],
+      "fallbacks_used": []
+    },
+    "run_20261106_080454": {
+      "run_id": "run_20261106_080454",
+      "status": "completed",
+      "phase": "filter",
+      "started_at": "2026-11-06T08:04:54.669Z",
+      "completed_at": "2026-11-06T08:04:54.669Z",
+      "source": "headless-discover",
+      "workflow_type": "apify-fantastic-jobs",
+      "counts": {
+        "discovered": 2,
+        "filtered_out": 2,
+        "scored": 0,
+        "tailored": 0,
+        "applied": 0,
+        "skipped": 2,
+        "manual_required": 0,
+        "awaiting_human_submit": 0,
+        "email_draft": 0,
+        "error": 0
+      },
+      "last_step_executed": "filter",
+      "stop_reason": "All 2 scanned jobs filtered out during prefilter/dedup",
+      "models_used": [],
+      "fallbacks_used": []
     }
   }
 }
