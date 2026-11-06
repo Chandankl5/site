@@ -1,0 +1,84 @@
+{
+  "generated_at": "2026-11-06T07:57:35.091Z",
+  "daily": {
+    "2026-11-06": {
+      "date": "2026-11-06",
+      "tokens_by_model": {
+        "gemini-3.8-flash": 1850,
+        "gemini-2.5-flash": 1920,
+        "openai/gpt-oss-120b": 4800,
+        "gemini-3.8-flash-lite": 1200
+      },
+      "jobs_scored_by_model": {
+        "gemini-3.8-flash": 2,
+        "gemini-2.5-flash": 2
+      },
+      "jobs_tailored_by_model": {
+        "openai/gpt-oss-120b": 1,
+        "gemini-3.8-flash": 1
+      },
+      "jobs_applied_by_model": {
+        "gemini-3.8-flash-lite": 1
+      },
+      "fallbacks_count": 1,
+      "total_tokens": 9770,
+      "total_scored": 4,
+      "total_tailored": 2,
+      "total_applied": 1
+    },
+    "2026-07-09": {
+      "date": "2026-07-09",
+      "tokens_by_model": {
+        "gemini-3.8-flash": 3200,
+        "gemini-3.8-flash-lite": 1100
+      },
+      "jobs_scored_by_model": {
+        "gemini-3.8-flash": 1
+      },
+      "jobs_tailored_by_model": {
+        "gemini-3.8-flash": 1
+      },
+      "jobs_applied_by_model": {
+        "gemini-3.8-flash-lite": 1
+      },
+      "fallbacks_count": 0,
+      "total_tokens": 4300,
+      "total_scored": 1,
+      "total_tailored": 1,
+      "total_applied": 1
+    }
+  },
+  "totals": {
+    "total_tokens": 14070,
+    "total_scored": 5,
+    "total_tailored": 3,
+    "total_applied": 2,
+    "total_fallbacks": 1,
+    "by_model": {
+      "gemini-3.8-flash": {
+        "tokens": 5050,
+        "scored": 3,
+        "tailored": 1,
+        "applied": 0
+      },
+      "gemini-2.5-flash": {
+        "tokens": 1920,
+        "scored": 2,
+        "tailored": 0,
+        "applied": 0
+      },
+      "openai/gpt-oss-120b": {
+        "tokens": 4800,
+        "scored": 0,
+        "tailored": 1,
+        "applied": 0
+      },
+      "gemini-3.8-flash-lite": {
+        "tokens": 2300,
+        "scored": 0,
+        "tailored": 0,
+        "applied": 2
+      }
+    }
+  }
+}

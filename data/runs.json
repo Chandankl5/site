@@ -7,11 +7,13 @@
       "phase": "score",
       "started_at": "2026-07-09T00:35:16Z",
       "counts": {
-        "discovered": 0,
-        "scored": 0,
-        "tailored": 0,
+        "discovered": 20,
+        "filtered_out": 15,
+        "scored": 1,
+        "tailored": 1,
         "applied": 0,
-        "skipped": 0
+        "skipped": 15,
+        "manual_required": 1
       },
       "search_context": {
         "portal": "linkedin",
@@ -19,6 +21,48 @@
         "keywords": "Software Engineer, Senior Software Engineer, Senior Frontend Developer, Frontend Developer, UI Developer",
         "work_mode_filter": "on-site or hybrid",
         "date_posted": "any"
+      },
+      "last_step_executed": "apply",
+      "stop_reason": "Stopped at apply: Greenhouse form exceeded field limit; resume upload tool required manual action",
+      "models_used": [
+        "gemini-3.8-flash",
+        "gemini-3.8-flash-lite"
+      ],
+      "fallbacks_used": []
+    },
+    "run_20261106_090000": {
+      "run_id": "run_20261106_090000",
+      "status": "completed",
+      "phase": "apply",
+      "started_at": "2026-11-06T03:30:00Z",
+      "completed_at": "2026-11-06T03:42:15Z",
+      "source": "headless-discover",
+      "workflow_type": "apify-fantastic-jobs",
+      "last_step_executed": "apply",
+      "stop_reason": "Completed all pipeline stages: 1 application submitted, 1 awaiting human submit",
+      "models_used": [
+        "gemini-3.8-flash",
+        "gemini-2.5-flash",
+        "openai/gpt-oss-120b",
+        "gemini-3.8-flash-lite"
+      ],
+      "fallbacks_used": [
+        {
+          "step": "score",
+          "primary_model": "gemini-3.8-flash",
+          "fallback_model": "gemini-2.5-flash",
+          "failure_reason": "HTTP 429 Quota Exceeded (Resource has been exhausted)",
+          "fallback_reason": "Internal Gemini lane failover: primary 3.8 rate limited, successfully retried on 2.5"
+        }
+      ],
+      "counts": {
+        "discovered": 8,
+        "filtered_out": 4,
+        "scored": 4,
+        "tailored": 2,
+        "applied": 1,
+        "skipped": 6,
+        "manual_required": 1
       }
     }
   }

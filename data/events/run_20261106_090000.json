@@ -1,0 +1,56 @@
+[
+  {
+    "event": "discover_done",
+    "agent": "apify-fantastic-jobs",
+    "raw_count": 8,
+    "survivor_count": 4,
+    "seen_skipped": 1,
+    "prefilter_dropped": 3,
+    "ts": "2026-11-06T03:32:00Z"
+  },
+  {
+    "event": "scored",
+    "agent": "gemini-scorer",
+    "model": "gemini-3.8-flash",
+    "job_id": "fantastic_jobs_7718290",
+    "to_phase": "skipped",
+    "fit_score": 62,
+    "tokens_used": 1850,
+    "ts": "2026-11-06T03:36:20Z"
+  },
+  {
+    "event": "scored",
+    "agent": "gemini-scorer",
+    "model": "gemini-2.5-flash",
+    "fallback_info": {
+      "is_fallback": true,
+      "primary_model": "gemini-3.8-flash",
+      "failure_reason": "HTTP 429 Quota Exceeded",
+      "fallback_reason": "Retried on gemini-2.5-flash"
+    },
+    "job_id": "fantastic_jobs_9821041",
+    "to_phase": "pending_tailor",
+    "fit_score": 94,
+    "tokens_used": 1920,
+    "ts": "2026-11-06T03:37:10Z"
+  },
+  {
+    "event": "tailored",
+    "agent": "groq-tailor",
+    "model": "openai/gpt-oss-120b",
+    "job_id": "fantastic_jobs_9821041",
+    "to_phase": "pending_apply",
+    "tokens_used": 4800,
+    "ts": "2026-11-06T03:38:00Z"
+  },
+  {
+    "event": "applied",
+    "agent": "headless-apply",
+    "model": "gemini-3.8-flash-lite",
+    "job_id": "fantastic_jobs_9821041",
+    "to_phase": "applied",
+    "result_reason": "submission_confirmed",
+    "tokens_used": 1200,
+    "ts": "2026-11-06T03:41:00Z"
+  }
+]

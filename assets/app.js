@@ -1,5 +1,6 @@
 import { initJobBoard, closeDetail } from "./jobBoard.js";
 import { initRunsView } from "./runsView.js";
+import { initInsightsView } from "./insightsView.js";
 import { renderLlmUsage } from "./llmUsage.js";
 
 function setupTabs() {
@@ -57,10 +58,11 @@ async function main() {
     return;
   }
 
-  const [runsData, jobs, llmUsage] = await Promise.all([
+  const [runsData, jobs, llmUsage, insights] = await Promise.all([
     fetchJson("data/runs.json"),
     fetchJson("data/jobs.json"),
     fetchJson("data/llm_usage.json"),
+    fetchJson("data/insights.json"),
   ]);
 
   const generatedAtEl = document.getElementById("generated-at");
@@ -73,6 +75,8 @@ async function main() {
   const manualEl = document.getElementById("view-manual");
   if (manualEl) initJobBoard(manualEl, jobs || [], { manualOnly: true, idPrefix: "manual" });
   initRunsView(document.getElementById("view-runs"), (runsData && runsData.runs) || {}, jobs || []);
+  const insightsEl = document.getElementById("view-insights");
+  if (insightsEl) initInsightsView(insightsEl, insights || {});
 }
 
 main();

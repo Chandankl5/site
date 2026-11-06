@@ -1,5 +1,140 @@
 [
   {
+    "job_id": "fantastic_jobs_9821041",
+    "job_url": "https://stripe.com/jobs/9821041-staff-frontend-engineer",
+    "title": "Staff Frontend Engineer - Checkout UI",
+    "company": "Stripe",
+    "portal": "career_site",
+    "location": "Bengaluru (Hybrid)",
+    "posted_at": "2026-11-06",
+    "phase": "applied",
+    "status": "applied",
+    "fit_score": 94,
+    "fit_breakdown": {
+      "skills_score": 39,
+      "experience_score": 25,
+      "location_score": 20,
+      "salary_score": 10
+    },
+    "fit_rationale": "Exceptional match for candidate React, TypeScript, and large-scale web performance expertise. Hybrid Bengaluru fits profile perfectly.",
+    "standard_title": "Staff Frontend Engineer",
+    "run_id": "run_20261106_090000",
+    "decided_at": "2026-11-06T03:38:00Z",
+    "workflow_type": "apify-fantastic-jobs",
+    "model_used": "gemini-2.5-flash",
+    "fallback_info": {
+      "is_fallback": true,
+      "primary_model": "gemini-3.8-flash",
+      "primary_failure_reason": "HTTP 429 Quota Exceeded",
+      "fallback_reason": "Retried on gemini-2.5-flash"
+    },
+    "tailor_model_used": "openai/gpt-oss-120b",
+    "tailor_fallback_info": null,
+    "apply_model_used": "gemini-3.8-flash-lite",
+    "apply_fallback_info": null,
+    "last_step_executed": "apply",
+    "resume_downloads": {
+      "pdf": "https://github.com/Chandankl5/ja-automation/raw/refs/heads/main/outputs/resumes/stripe_9821041/resume.pdf",
+      "docx": "https://github.com/Chandankl5/ja-automation/raw/refs/heads/main/outputs/resumes/stripe_9821041/resume.docx"
+    }
+  },
+  {
+    "job_id": "fantastic_jobs_8819202",
+    "job_url": "https://atlassian.com/careers/8819202-senior-frontend-developer",
+    "title": "Senior Frontend Developer - Jira Cloud",
+    "company": "Atlassian",
+    "portal": "career_site",
+    "location": "Bengaluru (Remote OK)",
+    "posted_at": "2026-11-06",
+    "phase": "awaiting_human_submit",
+    "status": "awaiting_human_submit",
+    "fit_score": 87,
+    "fit_breakdown": {
+      "skills_score": 35,
+      "experience_score": 23,
+      "location_score": 20,
+      "salary_score": 9
+    },
+    "fit_rationale": "Strong frontend architecture focus with React and micro-frontends; matches candidate experience profile.",
+    "standard_title": "Senior Frontend Developer",
+    "run_id": "run_20261106_090000",
+    "decided_at": "2026-11-06T03:39:10Z",
+    "workflow_type": "apify-fantastic-jobs",
+    "model_used": "gemini-3.8-flash",
+    "fallback_info": null,
+    "tailor_model_used": "gemini-3.8-flash",
+    "tailor_fallback_info": null,
+    "last_step_executed": "tailor",
+    "result_reason": "gated_portal_handoff",
+    "resume_downloads": {
+      "pdf": "https://github.com/Chandankl5/ja-automation/raw/refs/heads/main/outputs/resumes/atlassian_8819202/resume.pdf",
+      "docx": "https://github.com/Chandankl5/ja-automation/raw/refs/heads/main/outputs/resumes/atlassian_8819202/resume.docx"
+    }
+  },
+  {
+    "job_id": "fantastic_jobs_7718290",
+    "job_url": "https://uber.com/careers/7718290-ui-engineer",
+    "title": "UI Engineer II",
+    "company": "Uber",
+    "portal": "career_site",
+    "location": "Bengaluru (Hybrid)",
+    "posted_at": "2026-11-06",
+    "phase": "skipped",
+    "status": "skipped",
+    "reason": "low_fit",
+    "fit_score": 62,
+    "fit_breakdown": {
+      "skills_score": 24,
+      "experience_score": 16,
+      "location_score": 15,
+      "salary_score": 7
+    },
+    "fit_rationale": "Requires deep iOS/Android native mobile development (Kotlin/Swift) in addition to UI components; candidate profile is web-focused.",
+    "standard_title": "UI Engineer",
+    "run_id": "run_20261106_090000",
+    "decided_at": "2026-11-06T03:36:20Z",
+    "workflow_type": "apify-fantastic-jobs",
+    "model_used": "gemini-3.8-flash",
+    "fallback_info": null,
+    "last_step_executed": "score"
+  },
+  {
+    "job_id": "fantastic_jobs_6615201",
+    "job_url": "https://amazon.jobs/en/jobs/6615201-sde-backend",
+    "title": "Software Development Engineer II - Backend Java",
+    "company": "Amazon",
+    "portal": "career_site",
+    "location": "Hyderabad (On-site)",
+    "posted_at": "2026-11-06",
+    "phase": "skipped",
+    "status": "skipped",
+    "reason": "hard_filter_location",
+    "fit_score": null,
+    "standard_title": "Software Engineer",
+    "run_id": "run_20261106_090000",
+    "decided_at": "2026-11-06T03:32:10Z",
+    "workflow_type": "apify-fantastic-jobs",
+    "last_step_executed": "prefilter"
+  },
+  {
+    "job_id": "fantastic_jobs_5514209",
+    "job_url": "https://oracle.com/careers/5514209-devops-cloud",
+    "title": "Senior DevOps / Cloud Engineer",
+    "company": "Oracle",
+    "portal": "career_site",
+    "location": "Bengaluru (Hybrid)",
+    "posted_at": "2026-11-06",
+    "phase": "skipped",
+    "status": "skipped",
+    "reason": "hard_filter_stack_mismatch",
+    "fit_score": null,
+    "standard_title": "DevOps Engineer",
+    "run_id": "run_20261106_090000",
+    "decided_at": "2026-11-06T03:32:15Z",
+    "workflow_type": "apify-fantastic-jobs",
+    "last_step_executed": "prefilter"
+  },
+  {
     "job_id": "linkedin_4282211964",
     "job_url": "https://www.linkedin.com/jobs/view/4282211964/",
     "title": "Senior Frontend Engineer",
@@ -49,7 +184,15 @@
     "cover_path": "outputs/covers/cover_hackerrank_20260709.md",
     "result_reason": "too_many_fields: Greenhouse form has ~16 required fields, exceeds external_form_max_fields=15; also file_upload tool in this environment is broken (schema/runtime mismatch), resume attach not possible via automation",
     "run_id": "run_20260709_003516",
-    "decided_at": "2026-07-08T19:55:00Z"
+    "decided_at": "2026-07-08T19:55:00Z",
+    "model_used": "gemini-3.8-flash",
+    "tailor_model_used": "gemini-3.8-flash",
+    "apply_model_used": "gemini-3.8-flash-lite",
+    "last_step_executed": "apply",
+    "resume_downloads": {
+      "pdf": "https://github.com/Chandankl5/ja-automation/raw/refs/heads/main/outputs/resumes/linkedin_4282211964/resume_hackerrank_20260709.pdf",
+      "docx": "https://github.com/Chandankl5/ja-automation/raw/refs/heads/main/outputs/resumes/linkedin_4282211964/resume_hackerrank_20260709.docx"
+    }
   },
   {
     "job_id": "linkedin_4424246284",
