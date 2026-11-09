@@ -144,7 +144,7 @@
     "location": "Hyderabad, Telangana, India (Remote OK)",
     "posted_at": "2026-10-15T06:04:26",
     "application_type": "external_form",
-    "phase": "error",
+    "phase": "pending_apply",
     "status": "pending_score",
     "fit_score": 88,
     "fit_breakdown": {
@@ -154,7 +154,6 @@
       "salary_score": 10
     },
     "fit_rationale": "The candidate matches all core frontend technologies required (React, TypeScript, JavaScript, HTML, CSS) and has solid UI development experience within the 3–5 year range. Remote work is explicitly allowed and aligns with the candidate’s location and remote preferences. Overall the profile strongly fits the senior frontend UI role.",
-    "result_reason": "render_verification_failed",
     "standard_title": "Senior Frontend Engineer",
     "run_id": "run_20261109_060241",
     "decided_at": null,
@@ -173,6 +172,10 @@
       "primary_failure_reason": "Gemini HTTP 503: {\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n",
       "fallback_reason": "All Gemini models failed (Gemini HTTP 503: {\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n), failed over to Groq/openai/gpt-oss-120b"
     },
-    "last_step_executed": "prefilter"
+    "last_step_executed": "tailor",
+    "resume_downloads": {
+      "pdf": "data/resumes/fantastic-jobs-2457313791/resume.pdf",
+      "docx": "data/resumes/fantastic-jobs-2457313791/resume.docx"
+    }
   }
 ]

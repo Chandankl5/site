@@ -58,11 +58,18 @@ export function renderJobRow(job) {
         ${reason ? `<div class="skip-reason-hint">${reason.kind === "filter" ? "Filtered" : "LLM"}: ${escapeHtml(reason.label)}</div>` : ""}
         ${resultReason ? `<div class="skip-reason-hint">${RESULT_KIND_LABEL[resultReason.kind]}: ${escapeHtml(resultReason.label)}</div>` : ""}
       </div>
-      ${
-        job.job_url
-          ? `<a class="apply-link-btn" href="${escapeHtml(job.job_url)}" target="_blank" rel="noopener noreferrer">Apply ↗</a>`
-          : "<div></div>"
-      }
+      <div class="job-actions-cell">
+        ${
+          job.resume_downloads?.pdf
+            ? `<a class="resume-pill-link" href="${escapeHtml(job.resume_downloads.pdf)}" target="_blank" rel="noopener noreferrer" title="Download Tailored PDF">PDF ↗</a>`
+            : ""
+        }
+        ${
+          job.job_url
+            ? `<a class="apply-link-btn" href="${escapeHtml(job.job_url)}" target="_blank" rel="noopener noreferrer">Apply ↗</a>`
+            : "<div></div>"
+        }
+      </div>
     </div>`;
 }
 
@@ -158,6 +165,7 @@ export async function openJobDetail(job) {
     <div class="section-block">
       <h3>Result</h3>
       <p><b>Decided:</b> ${job.decided_at ? formatDateTime(job.decided_at) : "in progress"}</p>
+      ${job.run_id ? `<p><b>Run:</b> <a href="#runs" class="run-filter-link" onclick="location.hash='#runs';"><code>${escapeHtml(job.run_id)}</code> ↗</a></p>` : ""}
       ${job.model_used ? `<p><b>Scoring Model:</b> <code>${escapeHtml(job.model_used)}</code>${job.fallback_info?.is_fallback ? ` <span class="badge badge-manual_required">Fallback from ${escapeHtml(job.fallback_info.primary_model)}</span>` : ""}</p>` : ""}
       ${job.tailor_model_used ? `<p><b>Tailoring Model:</b> <code>${escapeHtml(job.tailor_model_used)}</code></p>` : ""}
       ${job.apply_model_used ? `<p><b>Apply Model:</b> <code>${escapeHtml(job.apply_model_used)}</code></p>` : ""}

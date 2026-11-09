@@ -165,7 +165,6 @@ main { padding: 20px 28px 60px; max-width: 1100px; margin: 0 auto; }
 .job-row .title { font-weight: 600; font-size: 14px; }
 .job-row .company { font-size: 12px; color: var(--text-muted); }
 .apply-link-btn {
-  justify-self: end;
   padding: 6px 12px;
   border-radius: var(--radius);
   border: 1px solid var(--accent);
@@ -176,6 +175,27 @@ main { padding: 20px 28px 60px; max-width: 1100px; margin: 0 auto; }
   white-space: nowrap;
 }
 .apply-link-btn:hover { background: var(--accent); color: #fff; }
+.job-actions-cell {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: flex-end;
+}
+.resume-pill-link {
+  padding: 5px 8px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface-2, #21262d);
+  color: var(--text);
+  font-size: 11px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.resume-pill-link:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
 .job-row .meta { font-size: 12px; color: var(--text-muted); }
 .job-row .fit-score { font-size: 13px; font-weight: 600; }
 .skip-reason-hint {
