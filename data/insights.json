@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-09T11:42:32.865Z",
+  "generated_at": "2026-11-09T19:05:17.054Z",
   "daily": {
     "2026-11-09": {
       "date": "2026-11-09",
@@ -14,19 +14,21 @@
       "jobs_tailored_by_model": {
         "openai/gpt-oss-120b": 1
       },
-      "jobs_applied_by_model": {},
+      "jobs_applied_by_model": {
+        "extension-manual": 1
+      },
       "fallbacks_count": 3,
       "total_tokens": 17320,
       "total_scored": 2,
       "total_tailored": 1,
-      "total_applied": 0
+      "total_applied": 1
     }
   },
   "totals": {
     "total_tokens": 17320,
     "total_scored": 2,
     "total_tailored": 1,
-    "total_applied": 0,
+    "total_applied": 1,
     "total_fallbacks": 3,
     "by_model": {
       "openai/gpt-oss-120b": {
@@ -40,6 +42,12 @@
         "scored": 1,
         "tailored": 0,
         "applied": 0
+      },
+      "extension-manual": {
+        "tokens": 0,
+        "scored": 0,
+        "tailored": 0,
+        "applied": 1
       }
     }
   }

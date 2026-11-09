@@ -1,5 +1,35 @@
 [
   {
+    "job_id": "linkedin_com_manual_1794251116988",
+    "job_url": "https://www.linkedin.com/jobs/view/999999",
+    "title": "Staff Frontend Engineer",
+    "company": "Stripe",
+    "portal": "linkedin.com",
+    "source_host": "linkedin.com",
+    "location": "Remote / Onsite",
+    "phase": "applied",
+    "status": "applied",
+    "fit_score": 92,
+    "fit_breakdown": {
+      "skills_score": 38,
+      "experience_score": 24,
+      "location_score": 18,
+      "salary_score": 12
+    },
+    "fit_rationale": "Applied manually via Chrome Extension from linkedin.com",
+    "run_id": "extension-manual",
+    "decided_at": "2026-11-09T19:05:16.988Z",
+    "applied_at": "2026-11-09T19:05:16.988Z",
+    "workflow_type": "extension-manual",
+    "model_used": "gemini-2.5-flash",
+    "apply_model_used": "extension-manual",
+    "last_step_executed": "apply",
+    "resume_downloads": {
+      "pdf": "data/resumes/linkedin-com-manual-1794251116988/resume.pdf",
+      "docx": "data/resumes/linkedin-com-manual-1794251116988/resume.docx"
+    }
+  },
+  {
     "job_id": "fantastic_jobs_2451458628",
     "job_url": "https://ystrategie.teamtailor.com/jobs/8670374-senior-front-end-developer",
     "title": "Senior Front-End Developer",
