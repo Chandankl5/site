@@ -1,7 +1,24 @@
 {
-  "date": "2026-11-06",
-  "groq_usage": {},
-  "gemini_usage": {},
+  "date": "2026-11-09",
+  "groq_usage": {
+    "openai/gpt-oss-120b": {
+      "tokens_today": 12891,
+      "benched": false,
+      "cooldown_until": 0
+    }
+  },
+  "gemini_usage": {
+    "gemini-3.8-flash": {
+      "calls": 2,
+      "benched": false,
+      "tokens_today": 0
+    },
+    "gemini-2.5-flash": {
+      "calls": 2,
+      "benched": false,
+      "tokens_today": 0
+    }
+  },
   "gemini_daily_cap": 20,
   "groq_tpd_cap": 200000,
   "groq_tpd_safety_cap": 180000

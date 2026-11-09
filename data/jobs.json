@@ -134,5 +134,45 @@
     "decided_at": "2026-11-06T08:03:49.124Z",
     "workflow_type": "apify-fantastic-jobs",
     "last_step_executed": "dedup"
+  },
+  {
+    "job_id": "fantastic_jobs_2457313791",
+    "job_url": "https://jobs.gem.com/accellor/am9icG9zdDoT60jNpxPzCOfuxtOR8njM",
+    "title": "Senior Frontend Developer",
+    "company": "Accellor",
+    "portal": "gem",
+    "location": "Hyderabad, Telangana, India (Remote OK)",
+    "posted_at": "2026-10-15T06:04:26",
+    "application_type": "external_form",
+    "phase": "error",
+    "status": "pending_score",
+    "fit_score": 88,
+    "fit_breakdown": {
+      "skills_score": 40,
+      "experience_score": 18,
+      "location_score": 20,
+      "salary_score": 10
+    },
+    "fit_rationale": "The candidate matches all core frontend technologies required (React, TypeScript, JavaScript, HTML, CSS) and has solid UI development experience within the 3–5 year range. Remote work is explicitly allowed and aligns with the candidate’s location and remote preferences. Overall the profile strongly fits the senior frontend UI role.",
+    "result_reason": "render_verification_failed",
+    "standard_title": "Senior Frontend Engineer",
+    "run_id": "run_20261109_060241",
+    "decided_at": null,
+    "workflow_type": "apify-fantastic-jobs",
+    "model_used": "openai/gpt-oss-120b",
+    "fallback_info": {
+      "is_fallback": true,
+      "primary_model": "gemini-3.8-flash",
+      "primary_failure_reason": "Gemini HTTP 503: {\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n",
+      "fallback_reason": "All Gemini models failed (Gemini HTTP 503: {\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n), failed over to Groq/openai/gpt-oss-120b"
+    },
+    "tailor_model_used": "openai/gpt-oss-120b",
+    "tailor_fallback_info": {
+      "is_fallback": true,
+      "primary_model": "gemini-3.8-flash",
+      "primary_failure_reason": "Gemini HTTP 503: {\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n",
+      "fallback_reason": "All Gemini models failed (Gemini HTTP 503: {\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n), failed over to Groq/openai/gpt-oss-120b"
+    },
+    "last_step_executed": "prefilter"
   }
 ]

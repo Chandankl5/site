@@ -1,5 +1,5 @@
 {
-  "current_run_id": null,
+  "current_run_id": "run_20261109_060241",
   "runs": {
     "run_20261106_080349": {
       "run_id": "run_20261106_080349",
@@ -104,6 +104,53 @@
       "models_used": [],
       "fallbacks_used": [],
       "github_run_url": "https://github.com/Chandankl5/ja-automation/actions/runs/42193751032"
+    },
+    "run_20261109_060241": {
+      "run_id": "run_20261109_060241",
+      "status": "completed",
+      "phase": "tailor",
+      "started_at": "2026-11-09T06:02:41.269Z",
+      "completed_at": "2026-11-09T06:08:38.568Z",
+      "source": "headless-discover",
+      "workflow_type": "apify-fantastic-jobs",
+      "counts": {
+        "discovered": 1,
+        "filtered_out": 0,
+        "scored": 1,
+        "tailored": 1,
+        "applied": 0,
+        "skipped": 0,
+        "manual_required": 0,
+        "awaiting_human_submit": 0,
+        "email_draft": 0,
+        "error": 1
+      },
+      "last_step_executed": "tailor",
+      "stop_reason": "Tailoring completed: 1 resume(s) tailored",
+      "models_used": [
+        "openai/gpt-oss-120b"
+      ],
+      "fallbacks_used": [
+        {
+          "step": "score",
+          "job_id": "fantastic_jobs_2457313791",
+          "is_fallback": true,
+          "primary_model": "gemini-3.8-flash",
+          "primary_failure_reason": "Gemini HTTP 503: {\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n",
+          "fallback_reason": "All Gemini models failed (Gemini HTTP 503: {\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n), failed over to Groq/openai/gpt-oss-120b",
+          "fallback_model": "openai/gpt-oss-120b"
+        },
+        {
+          "step": "tailor",
+          "job_id": "fantastic_jobs_2457313791",
+          "is_fallback": true,
+          "primary_model": "gemini-3.8-flash",
+          "primary_failure_reason": "Gemini HTTP 503: {\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n",
+          "fallback_reason": "All Gemini models failed (Gemini HTTP 503: {\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n), failed over to Groq/openai/gpt-oss-120b",
+          "fallback_model": "openai/gpt-oss-120b"
+        }
+      ],
+      "github_run_url": "https://github.com/Chandankl5/ja-automation/actions/runs/42570648690"
     }
   }
 }

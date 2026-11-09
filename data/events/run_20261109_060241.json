@@ -1,0 +1,34 @@
+[
+  {
+    "event": "scored",
+    "agent": "groq-scorer",
+    "model": "openai/gpt-oss-120b",
+    "fallback_info": {
+      "is_fallback": true,
+      "primary_model": "gemini-3.8-flash",
+      "primary_failure_reason": "Gemini HTTP 503: {\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n",
+      "fallback_reason": "All Gemini models failed (Gemini HTTP 503: {\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n), failed over to Groq/openai/gpt-oss-120b"
+    },
+    "tokens_used": 5152,
+    "ts": "2026-11-09T06:07:39.008Z",
+    "job_id": "fantastic_jobs_2457313791",
+    "to_phase": "pending_tailor",
+    "fit_score": 88
+  },
+  {
+    "event": "tailored",
+    "agent": "groq-tailor",
+    "model": "openai/gpt-oss-120b",
+    "fallback_info": {
+      "is_fallback": true,
+      "primary_model": "gemini-3.8-flash",
+      "primary_failure_reason": "Gemini HTTP 503: {\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n",
+      "fallback_reason": "All Gemini models failed (Gemini HTTP 503: {\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\n    \"status\": \"UNAVAILABLE\"\n  }\n}\n), failed over to Groq/openai/gpt-oss-120b"
+    },
+    "tokens_used": 7739,
+    "ts": "2026-11-09T06:08:38.428Z",
+    "job_id": "fantastic_jobs_2457313791",
+    "to_phase": "error",
+    "result_reason": "render_verification_failed"
+  }
+]
