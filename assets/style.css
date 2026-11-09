@@ -222,6 +222,48 @@ main { padding: 20px 28px 60px; max-width: 1100px; margin: 0 auto; }
 .badge-email_draft { background: var(--status-draft-bg); color: var(--status-draft-fg); }
 .badge-pending { background: var(--status-pending-bg); color: var(--status-pending-fg); }
 .badge-source { background: var(--accent-weak); color: var(--accent); }
+.badge-hr-contacted {
+  background: rgba(45, 212, 191, 0.18);
+  color: #2DD4BF;
+  border: 1px solid rgba(45, 212, 191, 0.45);
+}
+.hr-contact-block {
+  border-left: 3px solid #2DD4BF;
+  background: rgba(45, 212, 191, 0.05);
+}
+
+.portal-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-family: var(--font-mono, monospace);
+  padding: 1px 7px;
+  border-radius: 4px;
+  background: var(--surface, #21262d);
+  border: 1px solid var(--border, #30363d);
+  color: var(--text, #c9d1d9);
+  line-height: 1.4;
+  margin-bottom: 2px;
+}
+.portal-tag.portal-linkedin {
+  background: rgba(10, 102, 194, 0.15);
+  border-color: rgba(10, 102, 194, 0.45);
+  color: #70b5f9;
+}
+.portal-tag.portal-naukri {
+  background: rgba(255, 117, 85, 0.15);
+  border-color: rgba(255, 117, 85, 0.45);
+  color: #ff9f87;
+}
+.portal-tag.portal-ats {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.45);
+  color: #34d399;
+}
+.portal-tag.portal-direct {
+  background: rgba(168, 85, 247, 0.15);
+  border-color: rgba(168, 85, 247, 0.45);
+  color: #c084fc;
+}
 
 .llm-usage-panel {
   display: flex;

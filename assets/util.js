@@ -86,10 +86,20 @@ export function resultReasonMeta(reason) {
 // GitHub Actions pipeline calling an Apify actor's API).
 export function sourceLabel(workflowType) {
   if (!workflowType) return "—";
+  if (workflowType === "extension-manual" || workflowType === "manual") return "Manual (Extension)";
   if (workflowType === "claude-browser") return "Claude Browser";
   const m = workflowType.match(/^apify-(.+)$/);
   if (m) return `Apify: ${m[1]}`;
   return workflowType;
+}
+
+export function portalBadgeClass(portal) {
+  if (!portal) return "portal-direct";
+  const p = portal.toLowerCase();
+  if (p.includes("linkedin")) return "portal-linkedin";
+  if (p.includes("naukri")) return "portal-naukri";
+  if (p.includes("greenhouse") || p.includes("lever") || p.includes("workday") || p.includes("ashby")) return "portal-ats";
+  return "portal-direct";
 }
 
 export function formatDate(iso) {

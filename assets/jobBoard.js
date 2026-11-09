@@ -5,6 +5,7 @@
 import {
   statusMeta,
   sourceLabel,
+  portalBadgeClass,
   formatDate,
   formatDateTime,
   presetRange,
@@ -49,12 +50,25 @@ export function renderJobRow(job) {
         <div class="title">${escapeHtml(job.title)}</div>
         <div class="company">${escapeHtml(job.company)}</div>
       </div>
-      <div class="meta">${escapeHtml(job.portal)}<br/>${escapeHtml(job.location || "")}</div>
+      <div class="meta"><span class="portal-tag ${portalBadgeClass(job.portal)}">${escapeHtml(job.portal || "direct")}</span>${job.location ? `<br/>${escapeHtml(job.location)}` : ""}</div>
       <div class="meta">${dateLabel}</div>
       <div class="fit-score">${job.fit_score != null ? job.fit_score : "—"}</div>
       <div>
         <span class="badge ${meta.badge}">${escapeHtml(meta.label)}</span>
         <span class="badge badge-source">${escapeHtml(sourceLabel(job.workflow_type))}</span>
+        ${
+          job.hr_contacted
+            ? `<span class="badge badge-hr-contacted" title="${escapeHtml(
+                [
+                  job.hr_recruiter_name ? `Recruiter: ${job.hr_recruiter_name}` : "",
+                  job.hr_phone ? `Phone: ${job.hr_phone}` : "",
+                  job.hr_last_contacted_at ? `Contacted: ${formatDate(job.hr_last_contacted_at)}` : "",
+                ]
+                  .filter(Boolean)
+                  .join(" · ")
+              )}">📞 HR Contacted</span>`
+            : ""
+        }
         ${reason ? `<div class="skip-reason-hint">${reason.kind === "filter" ? "Filtered" : "LLM"}: ${escapeHtml(reason.label)}</div>` : ""}
         ${resultReason ? `<div class="skip-reason-hint">${RESULT_KIND_LABEL[resultReason.kind]}: ${escapeHtml(resultReason.label)}</div>` : ""}
       </div>
@@ -149,7 +163,7 @@ export async function openJobDetail(job) {
     <button class="close-btn" id="detail-close">&times;</button>
     <div class="detail-header">
       <h2>${escapeHtml(job.title)}</h2>
-      <div class="sub">${escapeHtml(job.company)} · ${escapeHtml(job.location || "")} · ${escapeHtml(job.portal)}</div>
+      <div class="sub">${escapeHtml(job.company)}${job.location ? ` · ${escapeHtml(job.location)}` : ""} · <span class="portal-tag ${portalBadgeClass(job.portal)}">${escapeHtml(job.portal || "direct")}</span></div>
       <span class="badge ${meta.badge}">${escapeHtml(meta.label)}</span>
       <span class="badge badge-source">${escapeHtml(sourceLabel(job.workflow_type))}</span>
     </div>
@@ -161,6 +175,20 @@ export async function openJobDetail(job) {
     </div>
 
     ${job.phase === "skipped" ? renderSkipReason(job) : ""}
+
+    ${
+      job.hr_contacted
+        ? `
+    <div class="section-block hr-contact-block">
+      <h3>Recruiter Interactions</h3>
+      <p><span class="badge badge-hr-contacted">📞 HR Contacted</span></p>
+      ${job.hr_recruiter_name ? `<p><b>Recruiter:</b> ${escapeHtml(job.hr_recruiter_name)}</p>` : ""}
+      ${job.hr_phone ? `<p><b>Contact Phone:</b> <code>${escapeHtml(job.hr_phone)}</code></p>` : ""}
+      ${job.hr_last_contacted_at ? `<p><b>Last Contacted:</b> ${formatDateTime(job.hr_last_contacted_at)}</p>` : ""}
+      ${job.hr_contact_count && job.hr_contact_count > 1 ? `<p><b>Interactions:</b> ${job.hr_contact_count}</p>` : ""}
+    </div>`
+        : ""
+    }
 
     <div class="section-block">
       <h3>Result</h3>
@@ -239,7 +267,13 @@ function compareJobs(a, b, key, dir) {
 function applyFilters(jobs, state) {
   const q = state.search.trim().toLowerCase();
   let filtered = jobs.filter((job) => {
-    if (state.status !== "all" && job.phase !== state.status) return false;
+    if (state.status !== "all") {
+      if (state.status === "hr_contacted") {
+        if (!job.hr_contacted) return false;
+      } else if (job.phase !== state.status) {
+        return false;
+      }
+    }
     if (state.portal !== "all" && job.portal !== state.portal) return false;
     if (state.skipReason !== "all" && job.reason !== state.skipReason) return false;
     if (state.resultReason !== "all" && job.result_reason !== state.resultReason) return false;
@@ -267,9 +301,11 @@ function computeStats(jobs) {
   const countByResultReason = (reason) => jobs.filter((j) => j.result_reason === reason).length;
   const scored = jobs.filter((j) => j.fit_score != null);
   const avgFit = scored.length ? Math.round((scored.reduce((s, j) => s + j.fit_score, 0) / scored.length) * 10) / 10 : null;
+  const hrContacted = jobs.filter((j) => j.hr_contacted).length;
   return {
     total: jobs.length,
     applied: countBy("applied"),
+    hrContacted,
     awaiting: countBy("awaiting_human_submit"),
     manual: countBy("manual_required"),
     // Called out explicitly because a repeated pattern here (many jobs
@@ -286,6 +322,9 @@ function renderStats(stats) {
   const tiles = [
     { label: "Total jobs", value: stats.total },
     { label: "Applied", value: stats.applied, color: "var(--status-applied-fg)" },
+    ...(stats.hrContacted > 0
+      ? [{ label: "HR Contacted", value: stats.hrContacted, color: "#2DD4BF", filterStatus: "hr_contacted" }]
+      : []),
     { label: "Awaiting your submit", value: stats.awaiting, color: "var(--status-human-fg)" },
     { label: "Manual required", value: stats.manual, color: "var(--status-manual-fg)" },
     { label: "CAPTCHA blocked", value: stats.captchaBlocked, color: "var(--status-error-fg)", filterResultReason: "captcha_blocked" },
@@ -294,8 +333,10 @@ function renderStats(stats) {
   return tiles
     .map(
       (t) => `
-      <div class="stat-tile${t.filterResultReason ? " stat-tile-clickable" : ""}"${
+      <div class="stat-tile${t.filterResultReason || t.filterStatus ? " stat-tile-clickable" : ""}"${
         t.filterResultReason ? ` data-filter-result-reason="${escapeHtml(t.filterResultReason)}"` : ""
+      }${
+        t.filterStatus ? ` data-filter-status="${escapeHtml(t.filterStatus)}"` : ""
       }>
         <div class="stat-value"${t.color ? ` style="color:${t.color}"` : ""}>${t.value}</div>
         <div class="stat-label">${t.label}</div>
@@ -309,14 +350,26 @@ export function initJobBoard(container, jobs) {
   const portals = uniquePortals(jobs);
   const skipReasons = uniqueSkipReasons(jobs);
   const resultReasons = uniqueResultReasons(jobs);
-  const statusOptions = ["all", "applied", "awaiting_human_submit", "manual_required", "skipped", "email_draft", "error", "pending_score", "pending_tailor", "pending_apply"];
+  const statusOptions = [
+    { key: "all", label: "All statuses" },
+    { key: "applied", label: "Applied" },
+    { key: "hr_contacted", label: "📞 HR Contacted" },
+    { key: "awaiting_human_submit", label: "Awaiting your submit" },
+    { key: "manual_required", label: "Manual required" },
+    { key: "skipped", label: "Skipped" },
+    { key: "email_draft", label: "Email draft" },
+    { key: "error", label: "Error" },
+    { key: "pending_score", label: "Pending score" },
+    { key: "pending_tailor", label: "Pending tailor" },
+    { key: "pending_apply", label: "Pending apply" },
+  ];
 
   container.innerHTML = `
     <div class="stats-strip" id="jb-stats"></div>
     <div class="toolbar">
       <input type="text" id="jb-search" placeholder="Search title or company…" />
       <select id="jb-status">
-        ${statusOptions.map((s) => `<option value="${s}">${s === "all" ? "All statuses" : s}</option>`).join("")}
+        ${statusOptions.map((s) => `<option value="${s.key}">${escapeHtml(s.label)}</option>`).join("")}
       </select>
       <select id="jb-portal">
         <option value="all">All portals</option>
@@ -462,15 +515,23 @@ export function initJobBoard(container, jobs) {
   // replaced on every render(), so tiles created by an earlier render are
   // gone by the time a click could reach a directly-attached listener.
   statsEl.addEventListener("click", (e) => {
-    const tile = e.target.closest("[data-filter-result-reason]");
-    if (!tile) return;
-    state.resultReason = tile.dataset.filterResultReason;
-    resultReasonSelect.value = state.resultReason;
-    if (state.status !== "manual_required" && state.status !== "awaiting_human_submit") {
-      state.status = "all";
-      statusSelect.value = "all";
+    const reasonTile = e.target.closest("[data-filter-result-reason]");
+    if (reasonTile) {
+      state.resultReason = reasonTile.dataset.filterResultReason;
+      resultReasonSelect.value = state.resultReason;
+      if (state.status !== "manual_required" && state.status !== "awaiting_human_submit") {
+        state.status = "all";
+        statusSelect.value = "all";
+      }
+      render();
+      return;
     }
-    render();
+    const statusTile = e.target.closest("[data-filter-status]");
+    if (statusTile) {
+      state.status = statusTile.dataset.filterStatus;
+      statusSelect.value = state.status;
+      render();
+    }
   });
   container.querySelector("#jb-presets").addEventListener("click", (e) => {
     const btn = e.target.closest(".preset-btn");
