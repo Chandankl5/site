@@ -1,0 +1,18 @@
+[
+  {
+    "event": "scored",
+    "agent": "gemini-scorer",
+    "model": "gemini-2.5-flash",
+    "fallback_info": {
+      "is_fallback": true,
+      "primary_model": "gemini-3.8-flash",
+      "primary_failure_reason": "Gemini HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "fallback_reason": "Gemini gemini-3.8-flash failed, retried on gemini-2.5-flash"
+    },
+    "tokens_used": 4429,
+    "ts": "2026-11-09T06:57:36.699Z",
+    "job_id": "fantastic_jobs_2457313791",
+    "to_phase": "skipped",
+    "fit_score": 0
+  }
+]

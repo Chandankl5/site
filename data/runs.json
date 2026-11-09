@@ -1,5 +1,5 @@
 {
-  "current_run_id": "run_20261109_060241",
+  "current_run_id": "run_20261109_065606",
   "runs": {
     "run_20261106_080349": {
       "run_id": "run_20261106_080349",
@@ -151,6 +151,44 @@
         }
       ],
       "github_run_url": "https://github.com/Chandankl5/ja-automation/actions/runs/42570648690"
+    },
+    "run_20261109_065606": {
+      "run_id": "run_20261109_065606",
+      "status": "completed",
+      "phase": "tailor",
+      "started_at": "2026-11-09T06:56:06.516Z",
+      "completed_at": "2026-11-09T06:57:36.859Z",
+      "source": "headless-discover",
+      "workflow_type": "apify-fantastic-jobs",
+      "counts": {
+        "discovered": 1,
+        "filtered_out": 1,
+        "scored": 1,
+        "tailored": 0,
+        "applied": 0,
+        "skipped": 1,
+        "manual_required": 0,
+        "awaiting_human_submit": 0,
+        "email_draft": 0,
+        "error": 0
+      },
+      "last_step_executed": "tailor",
+      "stop_reason": "Tailoring completed: 0 resume(s) tailored",
+      "models_used": [
+        "gemini-2.5-flash"
+      ],
+      "fallbacks_used": [
+        {
+          "step": "score",
+          "job_id": "fantastic_jobs_2457313791",
+          "is_fallback": true,
+          "primary_model": "gemini-3.8-flash",
+          "primary_failure_reason": "Gemini HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+          "fallback_reason": "Gemini gemini-3.8-flash failed, retried on gemini-2.5-flash",
+          "fallback_model": "gemini-2.5-flash"
+        }
+      ],
+      "github_run_url": "https://github.com/Chandankl5/ja-automation/actions/runs/42576075158"
     }
   }
 }

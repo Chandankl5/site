@@ -156,7 +156,7 @@
     "fit_rationale": "The candidate matches all core frontend technologies required (React, TypeScript, JavaScript, HTML, CSS) and has solid UI development experience within the 3–5 year range. Remote work is explicitly allowed and aligns with the candidate’s location and remote preferences. Overall the profile strongly fits the senior frontend UI role.",
     "standard_title": "Senior Frontend Engineer",
     "run_id": "run_20261109_060241",
-    "decided_at": null,
+    "decided_at": "2026-11-09T06:57:36.648Z",
     "workflow_type": "apify-fantastic-jobs",
     "model_used": "openai/gpt-oss-120b",
     "fallback_info": {
@@ -177,5 +177,32 @@
       "pdf": "data/resumes/fantastic-jobs-2457313791/resume.pdf",
       "docx": "data/resumes/fantastic-jobs-2457313791/resume.docx"
     }
+  },
+  {
+    "job_id": "fantastic_jobs_2457313791",
+    "job_url": "https://jobs.gem.com/accellor/am9icG9zdDoT60jNpxPzCOfuxtOR8njM",
+    "title": "Senior Frontend Developer",
+    "company": "Accellor",
+    "portal": "gem",
+    "location": "Hyderabad, Telangana, India (Remote OK)",
+    "posted_at": "2026-10-15T06:04:26",
+    "application_type": "external_form",
+    "phase": "skipped",
+    "status": "pending_score",
+    "fit_score": 0,
+    "fit_breakdown": {},
+    "fit_rationale": "The job posting indicates a primary location in Hyderabad, Telangana, India. Although it mentions 'Remote OK' and 'opportunities to work from home', the job description does not unambiguously state that the role is 100% fully remote from anywhere in India. Given the candidate lives in Bangalore and will not relocate, a role requiring attendance in Hyderabad (a non-target city) is a dealbreaker.",
+    "reason": "dealbreaker_relocation",
+    "run_id": "run_20261109_065606",
+    "decided_at": "2026-11-09T06:57:36.648Z",
+    "workflow_type": "apify-fantastic-jobs",
+    "model_used": "gemini-2.5-flash",
+    "fallback_info": {
+      "is_fallback": true,
+      "primary_model": "gemini-3.8-flash",
+      "primary_failure_reason": "Gemini HTTP 503: This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.",
+      "fallback_reason": "Gemini gemini-3.8-flash failed, retried on gemini-2.5-flash"
+    },
+    "last_step_executed": "prefilter"
   }
 ]

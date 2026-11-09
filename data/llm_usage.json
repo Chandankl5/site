@@ -9,14 +9,14 @@
   },
   "gemini_usage": {
     "gemini-3.8-flash": {
-      "calls": 2,
+      "calls": 3,
       "benched": false,
       "tokens_today": 0
     },
     "gemini-2.5-flash": {
-      "calls": 2,
+      "calls": 3,
       "benched": false,
-      "tokens_today": 0
+      "tokens_today": 4429
     }
   },
   "gemini_daily_cap": 20,
