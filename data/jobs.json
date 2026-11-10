@@ -1,5 +1,31 @@
 [
   {
+    "job_id": "linkedin_manual_6124808727",
+    "job_url": "",
+    "title": "Staff Frontend Engineer",
+    "company": "Vercel",
+    "portal": "linkedin",
+    "source_host": "linkedin",
+    "location": "Remote / Hybrid",
+    "phase": "applied",
+    "status": "applied",
+    "fit_score": 94,
+    "fit_breakdown": {
+      "skills_score": 38,
+      "experience_score": 25,
+      "location_score": 18,
+      "salary_score": 13
+    },
+    "fit_rationale": "Tailored via Vercel Cloud Agent (gemini-2.5-flash)",
+    "workflow_type": "extension-manual",
+    "model_used": "gemini-2.5-flash",
+    "tailor_model_used": "gemini-2.5-flash",
+    "last_step_executed": "apply",
+    "decided_at": "2026-11-10T11:39:22.106Z",
+    "applied_at": "2026-11-10T11:39:05.309Z",
+    "updated_at": "2026-11-10T11:39:22.106Z"
+  },
+  {
     "job_id": "fantastic_jobs_manual_test",
     "job_url": "",
     "title": "Lead Frontend Architect",
