@@ -2,6 +2,7 @@
 
 export const STATUS_META = {
   applied: { label: "Applied", badge: "badge-applied" },
+  tailored: { label: "Tailored", badge: "badge-tailored" },
   awaiting_human_submit: { label: "Awaiting your submit", badge: "badge-awaiting_human_submit" },
   manual_required: { label: "Manual required", badge: "badge-manual_required" },
   skipped: { label: "Skipped", badge: "badge-skipped" },

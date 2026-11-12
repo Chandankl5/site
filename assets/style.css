@@ -215,6 +215,7 @@ main { padding: 20px 28px 60px; max-width: 1100px; margin: 0 auto; }
   width: fit-content;
 }
 .badge-applied { background: var(--status-applied-bg); color: var(--status-applied-fg); }
+.badge-tailored { background: var(--status-human-bg); color: var(--status-human-fg); }
 .badge-awaiting_human_submit { background: var(--status-human-bg); color: var(--status-human-fg); }
 .badge-manual_required { background: var(--status-manual-bg); color: var(--status-manual-fg); }
 .badge-skipped { background: var(--status-skipped-bg); color: var(--status-skipped-fg); }

@@ -353,6 +353,7 @@ export function initJobBoard(container, jobs) {
   const statusOptions = [
     { key: "all", label: "All statuses" },
     { key: "applied", label: "Applied" },
+    { key: "tailored", label: "Tailored" },
     { key: "hr_contacted", label: "📞 HR Contacted" },
     { key: "awaiting_human_submit", label: "Awaiting your submit" },
     { key: "manual_required", label: "Manual required" },
